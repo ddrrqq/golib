@@ -1,0 +1,17 @@
+{
+    "gopath": "/Users/drq/.local/golib/",
+    "golib": [
+        {
+            "import": "github.com/jaxi/git-http-backend",
+            "src": "github.com/jaxi/git-http-backend",
+            "build": false,
+            "cmd": "cmd/"
+        },
+        {
+            "import": "github.com/jaxi/git-http-backend",
+            "src": "github.com/jaxi/git-http-backend",
+            "build": false,
+            "cmd": null
+        }
+    ]
+}
