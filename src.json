@@ -8,8 +8,8 @@
             "cmd": "cmd/"
         },
         {
-            "import": "github.com/jaxi/git-http-backend",
-            "src": "github.com/jaxi/git-http-backend",
+            "import": "github.com/daaku/go.zipexe",
+            "src": "github.com/daaku/go.zipexe",
             "build": false,
             "cmd": null
         }

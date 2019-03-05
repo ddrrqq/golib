@@ -2,11 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 
-function gitExecute(goPath, cwdPath) {
-    var git = cp.spawn('git', ['pull'], {
-        // cwd: goPath + 'src/' + cwdPath
-        cwd: path.join(goPath, 'src', cwdPath)
+function git_pull(goPath, importPath) {
+    var git = cp.spawnSync('git', ['pull'], {
+        // cwd: goPath + 'src/' + importPath
+        cwd: path.join(goPath, 'src', importPath),
+        stdio: 'inherit'
     });
+
+    return;
 
     git.stdout.on('data', d => {
         console.log(d.toString());
@@ -41,7 +44,7 @@ fs.readFile(__dirname + fileName, (err, buff) => {
 
     go_lib.forEach((v, i) => {
         console.log(i + 1 + '. ' + v['import']);
-        gitExecute(go_path, v['import']);
+        git_pull(go_path, v['import']);
     });
 
 });
