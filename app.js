@@ -4,7 +4,10 @@ const path = require('path');
 const url = require('url')
 
 function git_clone(goPath, importPath, srcPath) {
-    let git = cp.spawn('git', ['clone', ])
+    let author = importPath.substring(0, importPath.lastIndexOf('/'));
+    let git = cp.spawn('git', ['clone', '--depth', '1'], {
+        cwd: path.join(goPath, author)
+    });
 }
 
 /**
@@ -17,22 +20,6 @@ function git_pull(goPath, importPath) {
         // cwd: goPath + 'src/' + importPath
         cwd: path.join(goPath, 'src', importPath),
         stdio: 'inherit'
-    });
-
-    return;
-
-    git.stdout.on('data', d => {
-        console.log(d.toString());
-    });
-
-    git.stderr.on('data', d => {
-        console.log(`git stderr: ${ d }`);
-    });
-
-    git.on('close', c => {
-        if (c !== 0) {
-            console.log(`git process exited with code ${ c }`);
-        }
     });
 }
 

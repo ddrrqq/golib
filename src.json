@@ -5,7 +5,7 @@
             "import": "github.com/jaxi/git-http-backend",
             "src": "github.com/jaxi/git-http-backend",
             "build": false,
-            "cmd": "cmd/"
+            "cmd": "cmd"
         },
         {
             "import": "github.com/daaku/go.zipexe",
