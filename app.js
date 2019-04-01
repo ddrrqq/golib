@@ -3,10 +3,15 @@
 const path = require('path');
 const fs = require('fs');
 const git = require('./git');
+const go = require('./go');
 
-const SRC_FILE = '/src.json';
+/**
+ * @constant SRC_FILE 源码包 JSON 路径（FIXME:仅支持相对路径）。
+ */
+const SRC_FILE = 'src.json';
 
-fs.readFile(__dirname + SRC_FILE, (err, buff) => {
+// 读取源码包 JSON 文件。
+fs.readFile(path.join(__dirname, SRC_FILE), (err, buff) => {
     if (err) throw err;
 
     // 获取所有源码包记录。
@@ -23,11 +28,14 @@ fs.readFile(__dirname + SRC_FILE, (err, buff) => {
         let importPath = v['import'];
         console.log(`${ i + 1 }. ${ importPath }`);
 
+        // 判断是否存在 .git 文件夹。
         fs.existsSync(path.join(goPath, 'src', importPath, '.git')) ?
+            // 有 .git 文件夹则执行拉取命令。
             git.upgrade(goPath, importPath) :
+            // 没有 .git 则克隆源码包。
             git.get(goPath, importPath, v['src']);
 
-        v['build'] && git.build(importPath, v['cmd']);
+        v['build'] && go.build(importPath, v['cmd']);
     });
 
     console.info('Upgrade Complete!');
