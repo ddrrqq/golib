@@ -2,8 +2,8 @@
 
 const path = require('path');
 const fs = require('fs');
-const git = require('./git');
-const go = require('./go');
+const git = require('./lib/git');
+const go = require('./lib/go');
 
 /**
  * @constant SRC_FILE 源码包 JSON 路径（FIXME:仅支持相对路径）。
