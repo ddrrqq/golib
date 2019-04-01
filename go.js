@@ -6,8 +6,8 @@ const cp = require('child_process');
 class Go {
     /**
      * 编译支持命令行的包。
-     * @param {string} goPath GOPATH 路径。
      * @param {string} importPath import 指令引入包路径。
+     * @param {string} cmdPath 命令行 cmd 入口专用路径。
      */
     static build(importPath, cmdPath) {
         cp.spawnSync(
