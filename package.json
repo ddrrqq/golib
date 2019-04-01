@@ -1,0 +1,25 @@
+{
+  "name": "golib",
+  "version": "1.0.0",
+  "description": "Golang's packages updater and builder, for convert github.com URL from import to src tool.",
+  "main": "app.js",
+  "bin": {
+    "golib": "app.js"
+  },
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/Users/drq/.local/var/git/repositories/golib.git"
+  },
+  "keywords": [
+    "go",
+    "golang",
+    "golib",
+    "goimport",
+    "gosrc"
+  ],
+  "author": "ddrrqq",
+  "license": "MIT"
+}
