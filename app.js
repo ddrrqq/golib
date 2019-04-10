@@ -25,7 +25,8 @@ fs.readFile(path.join(__dirname, SRC_FILE), (err, buff) => {
 
     // 遍历并更新每一个源码包。
     goLibs.forEach((v, i) => {
-        let importPath = v['import'];
+        // FIXME: 非标准对象定义，string 和 Object 存在类型模糊。
+        let importPath = typeof v === 'string' ? v : v['import'];
         console.log(`${ i + 1 }. ${ importPath }`);
 
         // 判断是否存在 .git 文件夹。
@@ -33,9 +34,9 @@ fs.readFile(path.join(__dirname, SRC_FILE), (err, buff) => {
             // 有 .git 文件夹则执行拉取命令。
             git.upgrade(goPath, importPath) :
             // 没有 .git 则克隆源码包。
-            git.get(goPath, importPath, v['src']);
+            git.get(goPath, importPath, v['src'] || importPath);
 
-        v['build'] && go.build(importPath, v['cmd']);
+        v['build'] && go.build(importPath, v['cmd'] || '');
     });
 
     console.info('Upgrade Complete!');
