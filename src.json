@@ -1,23 +1,47 @@
 {
   "gopath": "/Users/drq/.local/golib/",
   "golib": [
-    "github.com/acroca/go-symbols",
-    "github.com/akavel/rsrc",
+    {
+      "import": "github.com/acroca/go-symbols",
+      "build": true
+    },
+    {
+      "import": "github.com/akavel/rsrc",
+      "build": true
+    },
     "github.com/casbin/casbin",
     "github.com/daaku/go.zipexe",
     "github.com/davecgh/go-spew",
     "github.com/dgrijalva/jwt-go",
-    "github.com/fatih/gomodifytags",
+    {
+      "import": "github.com/fatih/gomodifytags",
+      "build": true
+    },
     "github.com/GeertJohan/go.incremental",
-    "github.com/GeertJohan/go.rice",
+    {
+      "import": "github.com/GeertJohan/go.rice",
+      "build": true,
+      "cmd": "rice"
+    },
     "github.com/globalsign/mgo",
-    "github.com/go-delve/delve",
-    "github.com/golangci/golangci-lint",
+    {
+      "import": "github.com/go-delve/delve",
+      "build": true,
+      "cmd": "cmd/dlv"
+    },
+    {
+      "import": "github.com/golangci/golangci-lint",
+      "build": true,
+      "cmd": "cmd/golangci-lint"
+    },
     "github.com/gorilla/context",
     "github.com/gorilla/securecookie",
     "github.com/gorilla/sessions",
     "github.com/gorilla/websocket",
-    "github.com/jaxi/git-http-backend",
+    {
+      "import": "github.com/jaxi/git-http-backend",
+      "build": true
+    },
     "github.com/jessevdk/go-flags",
     "github.com/kardianos/osext",
     "github.com/karrick/godirwalk",
@@ -27,22 +51,61 @@
     "github.com/labstack/gommon",
     "github.com/mattn/go-colorable",
     "github.com/mattn/go-isatty",
-    "github.com/mdempsky/gocode",
+    {
+      "import": "github.com/mdempsky/gocode",
+      "build": true
+    },
     "github.com/nkovacs/streamquote",
     "github.com/pkg/errors",
     "github.com/pmezard/go-difflib",
-    "github.com/ramya-rao-a/go-outline",
-    "github.com/rogpeppe/godef",
+    {
+      "import": "github.com/ramya-rao-a/go-outline",
+      "build": true
+    },
+    {
+      "import": "github.com/rogpeppe/godef",
+      "build": true
+    },
     "github.com/skip2/go-qrcode",
-    "github.com/sqs/goreturns",
+    {
+      "import": "github.com/sqs/goreturns",
+      "build": true
+    },
     "github.com/stretchr/objx",
     "github.com/stretchr/testify",
-    "github.com/uudashr/gopkgs",
+    {
+      "import": "github.com/uudashr/gopkgs",
+      "build": true,
+      "cmd": "cmd/gopkgs"
+    },
     "github.com/valyala/fasttemplate",
-    "golang.org/x/crypto",
-    "golang.org/x/lint",
-    "golang.org/x/net",
-    "golang.org/x/text",
-    "golang.org/x/tools"
+    {
+      "import": "golang.org/x/crypto",
+      "src": "github.com/golang/crypto"
+    },
+    {
+      "import": "golang.org/x/lint",
+      "src": "github.com/golang/lint",
+      "build": true,
+      "cmd": "golint"
+    },
+    {
+      "import": "golang.org/x/net",
+      "src": "github.com/golang/net"
+    },
+    {
+      "import": "golang.org/x/text",
+      "src": "github.com/golang/text"
+    },
+    {
+      "import": "golang.org/x/tools",
+      "src": "github.com/golang/tools",
+      "build": true,
+      "cmd": [
+        "cmd/goimports",
+        "cmd/gorename",
+        "cmd/guru"
+      ]
+    }
   ]
 }

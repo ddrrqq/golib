@@ -23,6 +23,9 @@ fs.readFile(path.join(__dirname, SRC_FILE), (err, buff) => {
     // 获取所有源码包路径。
     let goLibs = goSrc['golib'];
 
+    // 需要编译的源码包集合。
+    let goBuilds = [];
+
     // 遍历并更新每一个源码包。
     goLibs.forEach((item, idx) => {
         // FIXME: 非标准对象定义，string 和 Object 存在类型模糊。
@@ -37,11 +40,21 @@ fs.readFile(path.join(__dirname, SRC_FILE), (err, buff) => {
             // 没有 .git 则克隆源码包。
             git.get(goPath, importPath, item['src'] || importPath);
 
-        // 判断是否编译，且判断是否同个包下有多个 cmd。
-        item['build'] && cmdValue instanceof Array ?
-            go.multiBuild(importPath, cmdValue) :
-            go.build(importPath, cmdValue || '');
+        // 判断是否编译，且判断是否同个包下有多个 cmd，追加到编译集合。
+        item['build'] && goBuilds.push({
+            import: importPath,
+            cmd: cmdValue || '',
+            multi: cmdValue instanceof Array
+        });
     });
 
-    console.info('Upgrade Complete!');
+    console.info('Upgrade Complete!\r\n');
+
+    goBuilds.forEach(item => {
+        item.multi ?
+            go.multiBuild(item.import, item.cmd) :
+            go.build(item.import, item.cmd);
+    });
+
+    console.info('All have been compiled!!\r\n');
 });
