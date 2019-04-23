@@ -1,6 +1,7 @@
 {
-  "name": "golib",
+  "name": "golang-lib",
   "version": "1.0.0",
+  "private": false,
   "description": "Golang's packages updater and builder, for convert github.com URL from import to src tool.",
   "main": "app.js",
   "bin": {
