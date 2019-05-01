@@ -10,24 +10,16 @@ const go = require('./lib/go');
  */
 const SRC_FILE = 'src.json';
 
-/**
- * @constant ARGV 程序启动参数数组。
- */
+/** @constant ARGV 程序启动参数数组。 */
 const ARGV = process.argv;
 
-/**
- * @variation goPath GOPATH 环境变量。
- */
+/** @variation goPath GOPATH 环境变量。 */
 var goPath;
 
-/**
- * @variation goLibs 需要拉取所有源码包路径集合。
- */
+/** @variation goLibs 需要拉取所有源码包路径集合。 */
 var goLibs = [];
 
-/**
- * @variation goBuilds 需要编译的部分源码包集合。
- */
+/** @variation goBuilds 需要编译的部分源码包集合。 */
 var goBuilds = [];
 
 function readSrcFile() {
@@ -90,6 +82,7 @@ function install() {
 }
 
 !function main() {
+    // 初始化源码包和编译集合。
     readSrcFile();
 
     // 获取第三个参数。
