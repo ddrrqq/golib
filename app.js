@@ -24,7 +24,7 @@ var goBuilds = [];
 
 function readSrcFile() {
     // 获取所有源码包记录。
-    let goSrc = JSON.parse(fs.readFileSync(path.join(__dirname, SRC_FILE)).toString('utf8'));
+    let goSrc = JSON.parse(fs.readFileSync(path.join(process.cwd(), SRC_FILE)).toString('utf8'));
 
     // 获取 GOPATH 路径。
     goPath = goSrc['gopath'];
