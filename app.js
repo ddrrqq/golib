@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const git = require('./lib/git');
 const go = require('./lib/go');
-const srcJSON = new (require('./lib/json'))('/Users/drq/Codes.localized/js/golib/src.json');
+const srcJSON = new (require('./lib/json'))();
 
 /**
  * @constant SRC_FILE 源码包 JSON 路径（FIXME:仅支持相对路径）。
@@ -91,7 +91,7 @@ function install() {
         case 'a': case 'add':
             // 检查源码包名称则进行追加配置。
             if (ARGV[3] && ARGV[3].indexOf('-') < 0) {
-                
+
                 let srcPath = null;
                 let isBuild = false;
                 let cmd = null;
@@ -101,11 +101,14 @@ function install() {
                     /** @string item */
                     const item = ARGV[i];
 
-                    // 判断参数信息
+                    // 检测参数信息
                     let option = arg => item.indexOf(arg) > -1 && ARGV.length > i + 1;
-                    
+
                     {
+                        // 检测源地址。
                         option('-src') && (srcPath = ARGV[i + 1]);
+
+                        // 检测是否编译。
                         if (option('-build')) {
                             let optionValue = ARGV[i + 1];
                             isBuild =
@@ -113,13 +116,14 @@ function install() {
                                 optionValue === 'yes' ||
                                 optionValue === '1';
                         }
+
+                        // 检测要编译命令行（‘,’ 分割的多个）。
                         option('-cmd') && (cmd = ARGV[i + 1]);
                     }
                 }
 
                 srcJSON.add(ARGV[3], srcPath, isBuild, cmd)
             } else console.log('Please input a package\'s import URL!');
-
             break;
         case 'rm': case 'remove':
             srcJSON.remove(ARGV[3]);
