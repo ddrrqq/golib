@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const git = require('./lib/git');
 const go = require('./lib/go');
+const srcJSON = new (require('./lib/json'))('/Users/drq/Codes.localized/js/golib/src.json');
 
 /**
  * @constant SRC_FILE 源码包 JSON 路径（FIXME:仅支持相对路径）。
@@ -24,7 +25,7 @@ var goBuilds = [];
 
 function readSrcFile() {
     // 获取所有源码包记录。
-    let goSrc = JSON.parse(fs.readFileSync(path.join(process.cwd(), SRC_FILE)).toString('utf8'));
+    let goSrc = srcJSON.getJSON();
 
     // 获取 GOPATH 路径。
     goPath = goSrc['gopath'];
@@ -87,6 +88,42 @@ function install() {
 
     // 获取第三个参数。
     switch (ARGV[2]) {
+        case 'a': case 'add':
+            // 检查源码包名称则进行追加配置。
+            if (ARGV[3] && ARGV[3].indexOf('-') < 0) {
+                
+                let srcPath = null;
+                let isBuild = false;
+                let cmd = null;
+
+                // 检测 src、build、cmd 是否存在。
+                for (let i = 4; i < ARGV.length; i++) {
+                    /** @string item */
+                    const item = ARGV[i];
+
+                    // 判断参数信息
+                    let option = arg => item.indexOf(arg) > -1 && ARGV.length > i + 1;
+                    
+                    {
+                        option('-src') && (srcPath = ARGV[i + 1]);
+                        if (option('-build')) {
+                            let optionValue = ARGV[i + 1];
+                            isBuild =
+                                optionValue === 'true' ||
+                                optionValue === 'yes' ||
+                                optionValue === '1';
+                        }
+                        option('-cmd') && (cmd = ARGV[i + 1]);
+                    }
+                }
+
+                srcJSON.add(ARGV[3], srcPath, isBuild, cmd)
+            } else console.log('Please input a package\'s import URL!');
+
+            break;
+        case 'rm': case 'remove':
+            srcJSON.remove(ARGV[3]);
+            break;
         case 'u': case 'up': case 'upgrade': case 'update':
             upgrade();
             break;
