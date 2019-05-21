@@ -6,11 +6,6 @@ const git = require('./lib/git');
 const go = require('./lib/go');
 const srcJSON = new (require('./lib/json'))();
 
-/**
- * @constant SRC_FILE 源码包 JSON 路径（FIXME:仅支持相对路径）。
- */
-const SRC_FILE = 'src.json';
-
 /** @constant ARGV 程序启动参数数组。 */
 const ARGV = process.argv;
 
@@ -122,7 +117,7 @@ function install() {
                     }
                 }
 
-                srcJSON.add(ARGV[3], srcPath, isBuild, cmd)
+                srcJSON.add(ARGV[3], srcPath, isBuild, cmd);
             } else console.log('Please input a package\'s import URL!');
             break;
         case 'rm': case 'remove':
