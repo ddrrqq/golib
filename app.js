@@ -83,6 +83,9 @@ function install() {
 
     // 获取第三个参数。
     switch (ARGV[2]) {
+        case 'gopath': case 'path':
+            srcJSON.gopath(ARGV[3]);
+            break;
         case 'a': case 'add':
             // 检查源码包名称则进行追加配置。
             if (ARGV[3] && ARGV[3].indexOf('-') < 0) {
