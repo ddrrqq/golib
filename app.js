@@ -7,6 +7,7 @@ const go = require('./lib/go');
 const srcJSON = new (require('./lib/json'))();
 
 /** @constant ARGV 程序启动参数数组。 */
+const VERSION = '1.4.1';
 const ARGV = process.argv;
 
 /** @variation goPath GOPATH 环境变量。 */
@@ -77,13 +78,21 @@ function install() {
     console.info('\r\nAll have been compiled!!\r\n');
 }
 
+function list() {
+    console.dir(srcJSON.getJSON(), { depth: 3});
+}
+
+function version() {
+    console.info(VERSION);
+}
+
 !function main() {
     // 初始化源码包和编译集合。
     readSrcFile();
 
     // 获取第三个参数。
     switch (ARGV[2]) {
-        case 'gopath': case 'path':
+        case 'path': case 'gopath':
             ARGV[3] ? srcJSON.gopath(ARGV[3]) : srcJSON.showGopath();
             break;
         case 'a': case 'add':
@@ -131,6 +140,12 @@ function install() {
             break;
         case 'i': case 'install': case 'init':
             install();
+            break;
+        case 'l': case'ls': case 'list':
+            list();
+            break;
+        case 'v': case 'ver': case 'version':
+            version();
             break;
         default:
             upgrade();

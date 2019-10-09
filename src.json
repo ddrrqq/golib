@@ -78,6 +78,7 @@
       "build": true,
       "cmd": "cmd/gopkgs"
     },
+    "github.com/valyala/bytebufferpool",
     "github.com/valyala/fasttemplate",
     {
       "import": "golang.org/x/crypto",
@@ -94,6 +95,10 @@
       "src": "github.com/golang/net"
     },
     {
+      "import": "golang.org/x/sync",
+      "src": "github.com/golang/sync"
+    },
+    {
       "import": "golang.org/x/text",
       "src": "github.com/golang/text"
     },
@@ -104,8 +109,13 @@
       "cmd": [
         "cmd/goimports",
         "cmd/gorename",
-        "cmd/guru"
+        "cmd/guru",
+        "cmd/gopls"
       ]
+    },
+    {
+      "import": "golang.org/x/xerrors",
+      "src": "github.com/golang/xerrors"
     }
   ]
 }
