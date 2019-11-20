@@ -116,6 +116,12 @@
     {
       "import": "golang.org/x/xerrors",
       "src": "github.com/golang/xerrors"
+    },
+    {
+      "import": "github.com/stamblerre/gocode",
+      "src": null,
+      "build": false,
+      "cmd": null
     }
   ]
 }
