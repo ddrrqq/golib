@@ -23,7 +23,6 @@
       "build": true,
       "cmd": "rice"
     },
-    "github.com/globalsign/mgo",
     {
       "import": "github.com/go-delve/delve",
       "build": true,

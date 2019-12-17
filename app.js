@@ -7,7 +7,7 @@ const go = require('./lib/go');
 const srcJSON = new (require('./lib/json'))();
 
 /** @constant ARGV 程序启动参数数组。 */
-const VERSION = '1.4.1';
+const VERSION = '1.4.3';
 const ARGV = process.argv;
 
 /** @variation goPath GOPATH 环境变量。 */
@@ -69,17 +69,16 @@ function upgrade() {
  * 编译源码包。
  */
 function install() {
-    goBuilds.forEach(item => {
-        item.multi ?
-            go.multiBuild(item.import, item.cmd) :
-            go.build(item.import, item.cmd);
-    });
+    goBuilds.forEach(item => item.multi ?
+        go.multiBuild(item.import, item.cmd) :
+        go.build(item.import, item.cmd)
+    );
 
     console.info('\r\nAll have been compiled!!\r\n');
 }
 
 function list() {
-    console.dir(srcJSON.getJSON(), { depth: 3});
+    console.dir(srcJSON.getJSON(), { depth: 3 });
 }
 
 function version() {
@@ -97,7 +96,7 @@ function version() {
             break;
         case 'a': case 'add':
             // 检查源码包名称则进行追加配置。
-            if (ARGV[3] && ARGV[3].indexOf('-') < 0) {
+            if (ARGV[3] && !ARGV[3].includes('-')) {
 
                 let srcPath = null;
                 let isBuild = false;
@@ -105,27 +104,23 @@ function version() {
 
                 // 检测 src、build、cmd 是否存在。
                 for (let i = 4; i < ARGV.length; i++) {
-                    /** @string item */
                     const item = ARGV[i];
+                    const optionValue = ARGV[i + 1];
 
                     // 检测参数信息
-                    let option = arg => item.indexOf(arg) > -1 && ARGV.length > i + 1;
+                    const option = arg => item.includes(arg) && ARGV.length - i - 1;
 
                     {
                         // 检测源地址。
-                        option('-src') && (srcPath = ARGV[i + 1]);
+                        option('-src') && (srcPath = optionValue);
 
                         // 检测是否编译。
                         if (option('-build')) {
-                            let optionValue = ARGV[i + 1];
-                            isBuild =
-                                optionValue === 'true' ||
-                                optionValue === 'yes' ||
-                                optionValue === '1';
+                            isBuild = ['true', 'yes', '1'].includes(optionValue)
                         }
 
                         // 检测要编译命令行（‘,’ 分割的多个）。
-                        option('-cmd') && (cmd = ARGV[i + 1]);
+                        option('-cmd') && (cmd = optionValue);
                     }
                 }
 
@@ -141,7 +136,7 @@ function version() {
         case 'i': case 'install': case 'init':
             install();
             break;
-        case 'l': case'ls': case 'list':
+        case 'l': case 'ls': case 'list':
             list();
             break;
         case 'v': case 'ver': case 'version':
