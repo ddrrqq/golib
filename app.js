@@ -7,7 +7,7 @@ const go = require('./lib/go');
 const srcJSON = new (require('./lib/json'))();
 
 /** @constant ARGV 程序启动参数数组。 */
-const VERSION = '1.4.3';
+const VERSION = '1.4.4';
 const ARGV = process.argv;
 
 /** @variation goPath GOPATH 环境变量。 */
@@ -27,7 +27,7 @@ function readSrcFile() {
     goPath = goSrc['gopath'];
 
     // 遍历并更新每一个源码包。
-    goSrc['golib'].forEach((item, idx) => {
+    goSrc['golib'].forEach(item => {
         // FIXME: 非标准对象定义，string 和 Object 存在类型模糊。
         let importPath = typeof item === 'string' ? item : item['import'];
         let cmdValue = item['cmd'];

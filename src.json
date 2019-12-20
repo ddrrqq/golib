@@ -90,6 +90,10 @@
       "cmd": "golint"
     },
     {
+      "import": "golang.org/x/mod",
+      "src": "github.com/golang/mod"
+    },
+    {
       "import": "golang.org/x/net",
       "src": "github.com/golang/net"
     },
